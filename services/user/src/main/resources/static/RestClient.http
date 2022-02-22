@@ -1,0 +1,61 @@
+GET http://localhost:8083/users
+
+# 8083
+###
+GET http://localhost:8083/users/1
+
+###
+DELETE http://localhost:8080/products/1
+
+
+###
+GET http://localhost:8083/wishlist
+Content-Type: application/json
+
+{
+    "product_id":1
+
+}
+###
+POST http://localhost:8083/user/1/wishlist
+Content-Type: application/json
+
+{
+    "product_id":1
+}
+
+###
+###
+PUT http://localhost:8080/products/4
+Content-Type: application/json
+
+{
+    "title": "You, Human",
+    "isbn":"100",
+    "author":"any",
+    "publisher":"pub2",
+    "price":105.0,
+    "stock":10
+}
+
+###
+GET http://localhost:8080/books/2/reviews
+
+###
+POST http://localhost:8080/books/2/reviews
+Content-Type: application/json
+
+{
+    "review": "Terrible book!"
+}
+
+###
+PUT http://localhost:8080/books/2/reviews/3
+Content-Type: application/json
+
+{
+    "review": "Should be bad!"
+}
+
+###
+DELETE http://localhost:8080/books/2/reviews/5

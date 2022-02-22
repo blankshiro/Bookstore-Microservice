@@ -1,0 +1,170 @@
+order-test_1      | ============================= test session starts ==============================
+order-test_1      | platform linux -- Python 3.10.0, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+mysql_order_1     | mbind: Operation not permitted
+order-test_1      | rootdir: /usr/src/app
+order-test_1      | plugins: dependency-0.5.1
+order-test_1      | collected 13 items
+order-test_1      | 
+books_1           | 172.18.0.15 - - [11/Nov/2021 13:43:38] "GET /health HTTP/1.1" 200 -
+orders_1          | 2021-11-11 13:43:38.428  INFO 1 --- [nio-8084-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+orders_1          | 2021-11-11 13:43:38.429  INFO 1 --- [nio-8084-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+users_1           | 2021-11-11 13:43:39.448  INFO 1 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+users_1           | 2021-11-11 13:43:39.471  INFO 1 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+orders_1          | 2021-11-11 13:43:39.778  INFO 1 --- [         task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+orders_1          | 2021-11-11 13:43:39.796  INFO 1 --- [         task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+users_1           | 2021-11-11 13:43:40.176  INFO 1 --- [           main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+users_1           | 2021-11-11 13:43:40.203  INFO 1 --- [           main] csd.user.Week4Application                : Started Week4Application in 22.863 seconds (JVM running for 26.386)
+orders_1          | 2021-11-11 13:43:40.519  INFO 1 --- [           main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+orders_1          | 2021-11-11 13:43:40.533  INFO 1 --- [nio-8084-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2104 ms
+orders_1          | 2021-11-11 13:43:40.552  INFO 1 --- [           main] cs302.orders.Week4Application            : Started Week4Application in 23.335 seconds (JVM running for 26.913)
+orders_1          | []
+books_1           | 172.18.0.15 - - [11/Nov/2021 13:43:41] "POST /products HTTP/1.1" 201 -
+books_1           | 172.18.0.14 - - [11/Nov/2021 13:43:41] "PATCH /products/1 HTTP/1.1" 200 -
+place-order_1     | check
+place-order_1     | {
+place-order_1     |   "amount": 10000,
+place-order_1     |   "amount_captured": 10000,
+place-order_1     |   "amount_refunded": 0,
+place-order_1     |   "application": null,
+place-order_1     |   "application_fee": null,
+place-order_1     |   "application_fee_amount": null,
+place-order_1     |   "balance_transaction": "txn_3JudZiCTtIsYSaGS1wBNqAyk",
+place-order_1     |   "billing_details": {
+place-order_1     |     "address": {
+place-order_1     |       "city": null,
+place-order_1     |       "country": null,
+place-order_1     |       "line1": null,
+place-order_1     |       "line2": null,
+place-order_1     |       "postal_code": null,
+place-order_1     |       "state": null
+place-order_1     |     },
+place-order_1     |     "email": null,
+place-order_1     |     "name": null,
+place-order_1     |     "phone": null
+place-order_1     |   },
+place-order_1     |   "calculated_statement_descriptor": "Stripe",
+place-order_1     |   "captured": true,
+place-order_1     |   "created": 1636638262,
+place-order_1     |   "currency": "sgd",
+place-order_1     |   "customer": null,
+place-order_1     |   "description": "Chris Bookstore Order",
+place-order_1     |   "destination": null,
+place-order_1     |   "dispute": null,
+place-order_1     |   "disputed": false,
+place-order_1     |   "failure_code": null,
+place-order_1     |   "failure_message": null,
+place-order_1     |   "fraud_details": {},
+place-order_1     |   "id": "ch_3JudZiCTtIsYSaGS12uplKSw",
+place-order_1     |   "invoice": null,
+place-order_1     |   "livemode": false,
+place-order_1     |   "metadata": {},
+place-order_1     |   "object": "charge",
+place-order_1     |   "on_behalf_of": null,
+place-order_1     |   "order": null,
+place-order_1     |   "outcome": {
+place-order_1     |     "network_status": "approved_by_network",
+place-order_1     |     "reason": null,
+place-order_1     |     "risk_level": "normal",
+place-order_1     |     "risk_score": 13,
+place-order_1     |     "seller_message": "Payment complete.",
+place-order_1     |     "type": "authorized"
+place-order_1     |   },
+place-order_1     |   "paid": true,
+place-order_1     |   "payment_intent": null,
+place-order_1     |   "payment_method": "card_1JudZhCTtIsYSaGSRJBfKsVK",
+place-order_1     |   "payment_method_details": {
+place-order_1     |     "card": {
+place-order_1     |       "brand": "visa",
+place-order_1     |       "checks": {
+place-order_1     |         "address_line1_check": null,
+place-order_1     |         "address_postal_code_check": null,
+place-order_1     |         "cvc_check": "pass"
+place-order_1     |       },
+place-order_1     |       "country": "US",
+place-order_1     |       "exp_month": 12,
+place-order_1     |       "exp_year": 2023,
+place-order_1     |       "fingerprint": "XMiXS6qRpg0iKYJh",
+place-order_1     |       "funding": "debit",
+place-order_1     |       "installments": null,
+place-order_1     |       "last4": "5556",
+place-order_1     |       "network": "visa",
+place-order_1     |       "three_d_secure": null,
+place-order_1     |       "wallet": null
+place-order_1     |     },
+place-order_1     |     "type": "card"
+place-order_1     |   },
+place-order_1     |   "receipt_email": null,
+place-order_1     |   "receipt_number": null,
+place-order_1     |   "receipt_url": "https://pay.stripe.com/receipts/acct_1JkVJRCTtIsYSaGS/ch_3JudZiCTtIsYSaGS12uplKSw/rcpt_KZnAeGNDTnRdIVaX67FWdDEbRLK5Jid",
+place-order_1     |   "refunded": false,
+place-order_1     |   "refunds": {
+place-order_1     |     "data": [],
+place-order_1     |     "has_more": false,
+place-order_1     |     "object": "list",
+place-order_1     |     "total_count": 0,
+place-order_1     |     "url": "/v1/charges/ch_3JudZiCTtIsYSaGS12uplKSw/refunds"
+place-order_1     |   },
+place-order_1     |   "review": null,
+place-order_1     |   "shipping": null,
+place-order_1     |   "source": {
+place-order_1     |     "address_city": null,
+place-order_1     |     "address_country": null,
+place-order_1     |     "address_line1": null,
+place-order_1     |     "address_line1_check": null,
+place-order_1     |     "address_line2": null,
+place-order_1     |     "address_state": null,
+place-order_1     |     "address_zip": null,
+place-order_1     |     "address_zip_check": null,
+place-order_1     |     "brand": "Visa",
+place-order_1     |     "country": "US",
+place-order_1     |     "customer": null,
+place-order_1     |     "cvc_check": "pass",
+place-order_1     |     "dynamic_last4": null,
+place-order_1     |     "exp_month": 12,
+place-order_1     |     "exp_year": 2023,
+place-order_1     |     "fingerprint": "XMiXS6qRpg0iKYJh",
+place-order_1     |     "funding": "debit",
+place-order_1     |     "id": "card_1JudZhCTtIsYSaGSRJBfKsVK",
+place-order_1     |     "last4": "5556",
+place-order_1     |     "metadata": {},
+place-order_1     |     "name": null,
+place-order_1     |     "object": "card",
+place-order_1     |     "tokenization_method": null
+place-order_1     |   },
+place-order_1     |   "source_transfer": null,
+place-order_1     |   "statement_descriptor": null,
+place-order_1     |   "statement_descriptor_suffix": null,
+place-order_1     |   "status": "succeeded",
+place-order_1     |   "transfer_data": null,
+place-order_1     |   "transfer_group": null
+place-order_1     | }
+place-order_1     | 172.18.0.15 - - [11/Nov/2021 13:43:43] "POST /createorder HTTP/1.1" 200 -
+place-order_1     | 172.18.0.15 - - [11/Nov/2021 13:43:43] "POST /deleteorder HTTP/1.1" 200 -
+order-test_1      | tests/test_orders.py ....                                                [ 30%]
+users_1           | 2021-11-11 13:43:43.310  INFO 1 --- [nio-8083-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+users_1           | 2021-11-11 13:43:43.310  INFO 1 --- [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+users_1           | 2021-11-11 13:43:43.328  INFO 1 --- [nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+wishlist_1        | 172.18.0.15 - - [11/Nov/2021 13:43:43] "GET /health HTTP/1.1" 200 -
+books_1           | 172.18.0.15 - - [11/Nov/2021 13:43:43] "GET /health HTTP/1.1" 200 -
+save-wishlist_1   | 172.18.0.15 - - [11/Nov/2021 13:43:43] "GET /health HTTP/1.1" 200 -
+books_1           | 172.18.0.13 - - [11/Nov/2021 13:43:43] "GET /products/1 HTTP/1.1" 200 -
+wishlist_1        | 172.18.0.13 - - [11/Nov/2021 13:43:43] "POST /wishlist HTTP/1.1" 201 -
+rabbitmq_1        | 2021-11-11 13:43:43.973858+00:00 [info] <0.758.0> accepting AMQP connection <0.758.0> (172.18.0.13:50466 -> 172.18.0.11:5672)
+rabbitmq_1        | 2021-11-11 13:43:43.976684+00:00 [info] <0.758.0> connection <0.758.0> (172.18.0.13:50466 -> 172.18.0.11:5672): user 'guest' authenticated and granted access to vhost '/'
+rabbitmq_1        | 2021-11-11 13:43:43.980609+00:00 [info] <0.758.0> closing AMQP connection <0.758.0> (172.18.0.13:50466 -> 172.18.0.11:5672, vhost: '/', user: 'guest')
+save-wishlist_1   | 172.18.0.15 - - [11/Nov/2021 13:43:43] "POST /save-wishlist HTTP/1.1" 201 -
+order-test_1      | tests/test_wishlist.py .....                                             [ 69%]
+wishlist_1        | 172.18.0.15 - - [11/Nov/2021 13:43:44] "GET /health HTTP/1.1" 200 -
+books_1           | 172.18.0.15 - - [11/Nov/2021 13:43:44] "GET /health HTTP/1.1" 200 -
+rabbitmq_1        | 2021-11-11 13:43:47.224311+00:00 [info] <0.777.0> accepting AMQP connection <0.777.0> (172.18.0.4:47136 -> 172.18.0.11:5672)
+rabbitmq_1        | 2021-11-11 13:43:47.226682+00:00 [info] <0.777.0> connection <0.777.0> (172.18.0.4:47136 -> 172.18.0.11:5672): user 'guest' authenticated and granted access to vhost '/'
+rabbitmq_1        | 2021-11-11 13:43:47.229481+00:00 [info] <0.777.0> closing AMQP connection <0.777.0> (172.18.0.4:47136 -> 172.18.0.11:5672, vhost: '/', user: 'guest')
+books_1           | 172.18.0.15 - - [11/Nov/2021 13:43:47] "PATCH /products/1 HTTP/1.1" 200 -
+wishlist_1        | 172.18.0.2 - - [11/Nov/2021 13:43:47] "GET /wishlist?book=1 HTTP/1.1" 200 -
+rabbitmq_1        | 2021-11-11 13:43:47.285359+00:00 [info] <0.794.0> accepting AMQP connection <0.794.0> (172.18.0.2:51878 -> 172.18.0.11:5672)
+rabbitmq_1        | 2021-11-11 13:43:47.288809+00:00 [info] <0.794.0> connection <0.794.0> (172.18.0.2:51878 -> 172.18.0.11:5672): user 'guest' authenticated and granted access to vhost '/'
+rabbitmq_1        | 2021-11-11 13:43:47.293593+00:00 [info] <0.794.0> closing AMQP connection <0.794.0> (172.18.0.2:51878 -> 172.18.0.11:5672, vhost: '/', user: 'guest')
+order-test_1      | tests/test_zpricedrop.py ....                                            [100%]
+order-test_1      |
+order-test_1      | ============================= 13 passed in 23.23s ==============================
+order-test_1 exited with code 0

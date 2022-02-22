@@ -1,0 +1,76 @@
+#### Extra client for development purposes only
+#### Please use DemoClient.http for final testing
+GET http://localhost:8082/products
+
+
+###
+curl -X POST -H "x-api-key: KoJCdG7pAdatTHI4gXP4q3FlOks3KNvf4GfiVIQ8" -H "Content-Type: application/json" -d '{"testkey":"KoJCdG7pAdatTHI4gXP4q3FlOks3KNvf4GfiVIQ8"}' https://boq2wtho1m.execute-api.ap-southeast-1.amazonaws.com/users
+
+###
+GET https://boq2wtho1m.execute-api.ap-southeast-1.amazonaws.com/users
+x-a
+KoJCdG7pAdatTHI4gXP4q3FlOks3KNvf4GfiVIQ8
+
+
+###
+POST https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/orders
+Content-Type: application/json
+
+{
+    "userId": 110,
+    "datetime": "2021-11-10 05:18:02.162803",
+    "totalPrice": 100,
+    "details": [
+        {
+            "productId": 978,
+            "quantity": 1,
+            "bookTitle": "Help Your Kids with Computer Science: A Unique Visual Step-by-Step Guide to Computers, Coding, and Communication",
+            "price": 100
+        }
+    ]
+}
+
+
+###
+POST https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/createorder
+Content-Type: application/json
+
+{"user_id":1 , 
+"product_list": [ {"product_id":0, "quantity":1} ],
+"card_details":{ "cardNumber" : 4000056655665556, "expiryMonth": 12, "expiryYear": 2023, "cvv": 123}
+}
+
+
+###
+POST https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/deleteorder
+Content-Type: application/json
+
+{
+    "order_id": 1
+}
+
+###
+GET http://localhost:33000/health
+
+
+###
+GET https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/products
+
+
+###
+POST https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/wishlist
+Content-Type: application/json
+
+{
+    "user_id": 3,
+    "book_id": 0
+}
+
+###
+PATCH https://yjnonj3tqg.execute-api.ap-southeast-1.amazonaws.com/prod/products/979
+Content-Type: application/json
+
+{
+    "price": 10.0,
+    "stock": 10
+}

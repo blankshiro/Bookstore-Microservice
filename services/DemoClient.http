@@ -1,0 +1,157 @@
+#### Please make use of this file to test functions
+
+#### Databases - Mock, No external port , MySql
+### Book - product.sql
+### Order - jpa auto update
+### Wishlist - wishlist.sql
+### Notification - notification.sql
+### User - jpa auto update
+
+#### MQ - RabbitMQ
+### MQ - Rabbitmq3 - 5672, 15672
+
+#### Services
+### Books : http://localhost:9000
+### Orders : http://localhost:9001
+### Place-order (Composite) : http://localhost:9002
+### Notification : No External Port
+### Wishlist : http://localhost:9003
+### User : http://localhost:9005
+### Save-wishlist (Composite) : http://localhost:9006
+### Monitor-price (Composite) : No External Port
+
+#### End to End Testing Service
+### Orders_test (No external port)
+
+#### Example Paths - Full Set found in API Documentation
+#### ids for the paths may change depending on how many times ran
+#### Please use the GET methods to check the ids :)
+
+#### Products 
+### Get Books
+GET http://localhost:9000/products
+
+### Get Book by Id
+GET http://localhost:9000/products/1
+
+### Create Book
+POST http://localhost:9000/products
+Content-Type: application/json
+
+{
+  "author": "John Kopec", 
+  "isbn": "1617295982", 
+  "price": 200.0, 
+  "publisher": "Tanning Publications", 
+  "stock": 35, 
+  "title": "Advanced Computer Science Problems in Python"
+}
+
+### Update Book ie change price
+PATCH  http://localhost:9000/products/2
+Content-Type: application/json
+
+{
+  "price": 100.0, 
+  "stock": 35
+}
+
+
+#### User
+### Get Users
+
+GET http://localhost:9005/users
+
+### Get Users by Id
+GET http://localhost:9005/users/1
+
+### Delete Users by Id
+DELETE http://localhost:9005/users/1
+
+### Create User  
+## AWS SES only sends emails to registered users due to it being a test deployment
+## Please contact us to register ur email if you want to receive it 
+POST http://localhost:9005/users
+Content-Type: application/json
+
+{
+    "name":"John Kopec",
+    "phone":"80001234",
+    "email":"wjtay1998@gmail.com",
+    "password":"JohnKopec1234"
+}
+
+### Additional Mappings found on API Documentation
+####
+
+#### Place orders
+
+### Create Order
+## Card number has to be valid (use provided sample)
+POST http://localhost:9002/createorder
+Content-Type: application/json
+
+{
+    "user_id":2,
+    "product_list":[{
+        "product_id":1,
+        "quantity":1},{
+        "product_id":2,
+        "quantity":1}
+        ],
+    "card_details":{
+        "cardNumber":"4000056655665556",
+        "expiryMonth":12,
+        "expiryYear":2023,
+        "cvv":"123"}
+}
+
+### Delete Order
+POST http://localhost:9002/deleteorder
+Content-Type: application/json
+
+{
+    "order_id":1
+}
+
+### Get Order
+
+GET http://localhost:9001/orders
+
+### Get orders by Id
+GET http://localhost:9001/orders/2
+
+### Delete orders by Id
+DELETE http://localhost:9001/orders/2
+### Additional Mappings found on API Documentation
+####
+
+#### Scenario: Save-wishlist
+### Save a wish list
+POST http://localhost:9006/save-wishlist
+Content-Type: application/json
+
+{ 
+    "user_id": 2, 
+    "wishlist_books" : [{ "book_id":1 }]
+}
+
+### View wishlists
+GET http://localhost:9003/wishlist
+### Additional Mappings found on API Documentation
+####
+
+#### Scenario: Price drop
+### Patch a price drop
+PATCH  http://localhost:9000/products/1
+Content-Type: application/json
+
+{
+  "price": 10, 
+  "stock": 35
+}
+
+### Check out the logs to see the notification service being called
+### Since its a test deployment your emails are not registed with AWS SES
+### Hence, AWS SES will not send the emails out.
+### Create a user with wjtay1998@gmail.com if necessary. Try not to spam :)

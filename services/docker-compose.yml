@@ -1,0 +1,240 @@
+version: '3.8'
+
+volumes:
+  rabbitmq_data:
+
+services:
+  ####################################
+  #  mysql database - product
+  ####################################
+  mysql_product:
+    image: mysql
+    cap_add:
+      - SYS_NICE
+    ports:
+      - "33061:3306"
+    command: --init-file /data/product.sql
+    volumes: 
+      - ./product.sql:/data/product.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: product
+      
+
+  ####################################
+  #  mysql database - order
+  ####################################
+  mysql_order:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order
+
+  
+  ####################################
+  # RabbitMQ: The messaging broker   
+  ####################################
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - rabbitmq_data:/var/lib/rabbitmq
+
+
+  ####################################
+  # Atomic Microservice: Books
+  ####################################
+  books:
+    build:
+      context: ./books
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - mysql-product
+    ports: 
+      - "9000:5000"
+    environment:
+      db_conn_books: mysql+mysqlconnector://root:root@mysql_product:3306
+    env_file:
+      - 'dev.env'
+
+  ####################################
+  # Atomic Microservice: Orders
+  ####################################
+  orders:
+    build:
+      context: ./orders
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - mysql-order
+    ports: 
+      - "9001:8084"
+    environment:
+      - spring_datasource_url=jdbc:mysql://root:root@mysql_order:3306/order
+      - spring.datasource.username=admin
+      - spring.datasource.password=root
+  
+  ####################################
+  # Composite Microservice: Pl. Order
+  ####################################
+  
+  place-order:
+    build:
+      context: ./place-order
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - "9002:5001"
+    depends_on:
+      - games
+      - orders
+      - rabbitmq
+    env_file:
+      - 'dev.env'
+    environment:
+      PYTHONUNBUFFERED: 1
+  
+  ####################################
+  # Testing Service: order-test
+  ####################################
+  
+  order-test:
+    build:
+      context: ./orders_test
+      dockerfile: Dockerfile.test
+    restart: 'no'
+    depends_on:
+      - books
+      - orders
+      - place-order
+      - rabbitmq
+    env_file:
+      - 'dev.env'
+    environment:
+      PYTHONUNBUFFERED: 1
+      db_conn_notification: mysql+mysqlconnector://root:root@mysql_notification:3306
+  
+  ####################################
+  #  mysql database - notification
+  ####################################
+  mysql_wishlist:
+    image: mysql
+    cap_add:
+      - SYS_NICE
+    command: --init-file /data/notification.sql
+    volumes: 
+      - ./notification.sql:/data/notification.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: notification
+
+  ####################################
+  #  mysql database - wishlist
+  ####################################
+  mysql_wishlist:
+    image: mysql
+    cap_add:
+      - SYS_NICE
+    command: --init-file /data/wishlist.sql
+    volumes: 
+      - ./wishlist.sql:/data/wishlist.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wishlist
+  
+  ####################################
+  #  mysql database - user
+  ####################################
+  mysql_user:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user
+  
+  ####################################
+  # Atomic Microservice: Wishlist
+  ####################################
+  wishlist:
+    build:
+      context: ./wishlist
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - "9003:5000"
+    environment:
+      db_conn_wishlist: mysql+mysqlconnector://root:root@mysql_wishlist:3306
+    env_file:
+      - 'dev.env'
+  
+  ####################################
+  # Atomic Microservice: Notifications
+  ####################################
+  notification:
+    build:
+      context: ./notifications
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      db_conn_notification: mysql+mysqlconnector://root:root@mysql_notification:3306
+    env_file:
+      - 'dev.env'
+
+  ####################################
+  # Atomic Microservice: User
+  ####################################
+  users:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - "9005:8083"
+    environment:
+      - spring_datasource_url=jdbc:mysql://root:root@mysql_user:3306/user
+      - spring.datasource.username=admin
+      - spring.datasource.password=root
+    env_file:
+      - 'dev.env'
+
+  ####################################
+  # Composite Microservice: Save Wishlist
+  ####################################
+
+  save-wishlist:
+    build:
+      context: ./save-wishlist
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - "9006:5000"
+    depends_on:
+      - users
+      - books
+      - wishlist
+    env_file:
+      - 'dev.env'
+    environment:
+      PYTHONUNBUFFERED: 1
+    
+  ####################################
+  # Composite Microservice: Monitor Price
+  ####################################
+
+  monitor-price:
+    build:
+      context: ./monitor-price
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - users
+      - books
+      - wishlist
+    env_file:
+      - 'dev.env'
+    environment:
+      PYTHONUNBUFFERED: 1

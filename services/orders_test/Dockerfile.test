@@ -1,0 +1,9 @@
+FROM python:3-slim
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+COPY tests/*.py ./tests/
+COPY src/* ./src/
+COPY ci/wait-for-it.sh ./
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ./wait-for-it.sh books:5000 -s && ./wait-for-it.sh orders:8084 -s && ./wait-for-it.sh place-order:5001 -s && ./wait-for-it.sh users:8083 -s && ./wait-for-it.sh wishlist:5000 -s && python -m pytest
+

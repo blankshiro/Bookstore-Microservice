@@ -1,0 +1,6 @@
+Flask==2.0.1
+Flask-Cors==3.0.10
+mysql-connector-python==8.0.26
+requests==2.26.0
+stripe==2.61.0
+pika==1.2.0
